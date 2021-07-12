@@ -6,8 +6,8 @@ from PIL.Image import open
 import sys
 import time
 
-gifs = ['test/','test/','test/']
-limits = [9,9,9]
+gifs = ['pokeball/','stones/','gameboy/']
+limits = [203,119,153]
 indexs = [0,0,0]
 
 cuad1= [(100, 100), (300, 100), (300, 300), (100, 300)]
@@ -46,16 +46,16 @@ def draw():
         draw_square_color(cuad3, colores[2])
     elif mode == 1:
                 
-        draw_square_image(cuad1, gifs[0] + str(indexs[0]) + ".jpg")
-        draw_square_image(cuad2, gifs[1] + str(indexs[1]) + ".jpg")
-        draw_square_image(cuad3, gifs[2] + str(indexs[2]) + ".jpg")
+        draw_square_image(cuad1, gifs[0] + "pokeball_gif-" + str(indexs[0]) + ".jpg")
+        draw_square_image(cuad2, gifs[1] + "stones-" + str(indexs[1]) + ".jpg")
+        draw_square_image(cuad3, gifs[2] + "gameboy-" + str(indexs[2]) + ".jpg")
 
         for i in range(len(indexs)):
             indexs[i] += 1
             if indexs[i] > limits[i]:
                 indexs[i] = 0
 
-        time.sleep(0.2)
+        time.sleep(0.03)
     glutSwapBuffers()
 
 
