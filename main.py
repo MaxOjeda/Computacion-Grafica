@@ -1,3 +1,4 @@
+from typing import Tuple
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
@@ -9,6 +10,14 @@ import time
 gifs = ['pokeball/','stones/','gameboy/']
 limits = [203,119,153]
 indexs = [0,0,0]
+
+gifs_game = ['Random/','Random/','Random/']
+limits_game = [4,4,4]
+indexs_game = [0,0,0]
+speed = 0.1
+pause1 = False
+pause2 = False
+pause3 = False
 
 cuad1= [(100, 100), (300, 100), (300, 300), (100, 300)]
 cuad2= [(500, 100), (700, 100), (700, 300), (500, 300)]
@@ -45,7 +54,7 @@ def draw():
         draw_square_color(cuad2, colores[1])
         draw_square_color(cuad3, colores[2])
     elif mode == 1:
-                
+        
         draw_square_image(cuad1, gifs[0] + "pokeball_gif-" + str(indexs[0]) + ".jpg")
         draw_square_image(cuad2, gifs[1] + "stones-" + str(indexs[1]) + ".jpg")
         draw_square_image(cuad3, gifs[2] + "gameboy-" + str(indexs[2]) + ".jpg")
@@ -56,6 +65,29 @@ def draw():
                 indexs[i] = 0
 
         time.sleep(0.03)
+    elif mode == 2:
+        
+        draw_square_image(cuad1, gifs_game[0] + "random_" + str(indexs_game[0]) + ".jpg")
+        draw_square_image(cuad2, gifs_game[1] + "random_" + str(indexs_game[1]) + ".jpg")
+        draw_square_image(cuad3, gifs_game[2] + "random_" + str(indexs_game[2]) + ".jpg")
+
+        if pause1 == False:
+            indexs_game[0] += 1
+            if indexs_game[0] > limits_game[0]:
+                indexs_game[0] = 0
+
+        if pause2 == False:
+            indexs_game[1] += 1
+            if indexs_game[1] > limits_game[1]:
+                indexs_game[1] = 0
+        
+        if pause3 == False:
+            indexs_game[2] += 1
+            if indexs_game[2] > limits_game[2]:
+                indexs_game[2] = 0
+
+        time.sleep(speed)
+
     glutSwapBuffers()
 
 
@@ -125,6 +157,11 @@ def keyboard2(key, foo, bar):
     global mode
     global images
     global cuadrilatero
+    global speed
+    global pause1
+    global pause2
+    global pause3
+    global indexs_game
 
     if key == as_8_bit('q'):
         sys.exit() 
@@ -171,6 +208,24 @@ def keyboard2(key, foo, bar):
         mode = 1
     elif key == as_8_bit('y'):
         mode = 0
+    elif key == as_8_bit('g'):
+        mode = 2
+    elif key == as_8_bit('+'):
+        speed += 0.1
+    elif key == as_8_bit('-'):
+        speed -= 0.1
+    elif key == as_8_bit('j'):
+        pause1 = True
+    elif key == as_8_bit('k'):
+        pause2 = True
+    elif key == as_8_bit('l'):
+        pause3 = True
+    elif key == as_8_bit('r'):
+        indexs_game = [0,0,0]
+        pause1 = False
+        pause2 = False
+        pause3 = False
+
     else:
         TimerCBOwner(key, 2000, 5)
 
